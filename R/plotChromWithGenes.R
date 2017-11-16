@@ -1,9 +1,16 @@
-plotChromosome <- function(chrom,ideo, chromStart, chromEnd,bpLim=NULL,
+#' Plot chromosome and genes
+#'
+#' @export
+
+plotChromosomeWithGenes <- function(chrom,ideo,bpLim=NULL,
                            titleVertical=1,titleHorizontal=4,vertical=TRUE,addScale=TRUE,
-                           chromName_cex=0.8,verbose=FALSE,...)
+                           chromName_cex=0.8,verbose=FALSE,GeneList = NULL,...)
 {
   ideo<-ideo[ideo$chrom == chrom,]
-  chrom_width <- c(-10, 10)
+  chromStart = min(ideo$chromStart)
+  chromEnd = max(ideo$chromEnd)
+  chrom_width <- c(-9, 9)
+  bpLim = c(chromStart,chromEnd)
   if (verbose) cat("\n plotting...",  chrom, "\n")
   args <- list(type='n',
                yaxt='n',xaxt='n',xlab=' ', ylab=' ',
@@ -108,4 +115,42 @@ plotChromosome <- function(chrom,ideo, chromStart, chromEnd,bpLim=NULL,
     rm(q_rect_coord)
   }
 
+  lableMin<-min(GeneList$start)-2000000
+  labelMax<-max(GeneList$start)+2000000
+  GeneList<-GeneList[order(GeneList$start),]
+  step<-(labelMax - lableMin)/nrow(GeneList)
+  for(g in 1:nrow(GeneList)){
+    text(GeneList[g,]$gene,
+         x = lableMin+(g-1)*step,y=6.5,srt=90,cex=0.8)
+    segments(x0 = GeneList[g,]$start,y0 = 0,
+             x1 = GeneList[g,]$start,y1 = 3)
+    segments(x0 = GeneList[g,]$start,y0 = 3,
+             x1 = lableMin + (g-1)*step,y1 = 5)
+    # if(g%%2 == 1){
+    #     if(g==1 | g%%4 ==1){
+    #         segments(x0 = GeneList[g,]$start,y0 = 1,
+    #                  x1 = GeneList[g,]$start + 1000,y1 = 5)
+    #         text(GeneList[g,]$gene,
+    #              x = GeneList[g,]$start+1000, y = 6.5,srt = 90,cex = 0.8)
+    #     }
+    #     else{segments(x0 = GeneList[g,]$start,y0 = 1,
+    #                   x1 = GeneList[g,]$start + 1000,y1 = 6)
+    #          text(GeneList[g,]$gene,
+    #                   x = GeneList[g,]$start+1000, y = 7.5,srt = 90,cex = 0.8)}
+    #   }
+    # else{
+    #   if(g==1 | g%%4 ==2){
+    #     segments(x0 = GeneList[g,]$start,y0 = 0,
+    #              x1 = GeneList[g,]$start + 1000,y1 = -4)
+    #     text(GeneList[g,]$gene,
+    #          x = GeneList[g,]$start+1000, y = -5.5,srt = 90,cex = 0.8)
+    #   }
+    #   else{segments(x0 = GeneList[g,]$start,y0 = 0,
+    #                 x1 = GeneList[g,]$start + 1000,y1 = -6)
+    #     text(GeneList[g,]$gene,
+    #          x = GeneList[g,]$start+1000, y = -7.5,srt = 90,cex = 0.8)}
+    # }
+
+
+  }
 }

@@ -32,4 +32,3 @@ getIdeo("mm9")
 \seealso{
 \code{avgByBin()},\code{getBins()}
 }
-

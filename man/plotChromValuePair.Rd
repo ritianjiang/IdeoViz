@@ -70,4 +70,3 @@ ablines_y=NULL,smoothVals=FALSE,default_margins=c(0.5,.5,.1,.1))
 \seealso{
 plotOnIdeo()
 }
-

@@ -100,4 +100,3 @@ GSM733664_broadPeaks[,1:3], chrom_bins, getBinCountOnly=TRUE)
 \seealso{
 \code{getIdeo()}, \code{getBins()}
 }
-

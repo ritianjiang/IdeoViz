@@ -32,4 +32,3 @@ chrom_bins <- getBins(c("chr1","chr2","chrX"), ideo_hg19,stepSize=5*100*1000)
 \seealso{
 \code{getIdeo()},\code{avgByBin()}
 }
-
