@@ -3,8 +3,9 @@
 #' @export
 
 plotChromosomeWithGenes <- function(chrom,ideo,bpLim=NULL,
-                           titleVertical=1,titleHorizontal=4,vertical=TRUE,addScale=TRUE,
-                           chromName_cex=0.8,verbose=FALSE,GeneList = NULL,...)
+                           titleVertical=1,titleHorizontal=4,vertical=F,addScale=TRUE,
+                           chromName_cex=0.8,verbose=FALSE,GeneList = NULL,
+                           Gband =F,...)
 {
   ideo<-ideo[ideo$chrom == chrom,]
   chromStart = min(ideo$chromStart)
@@ -81,6 +82,10 @@ plotChromosomeWithGenes <- function(chrom,ideo,bpLim=NULL,
     else {
       rect(xleft=ideo[k,2],ybottom=0,xright=ideo[k,3],ytop=1,
            col=col[k], border=col[k])
+      if(Gband == T){
+        text(ideo[k,]$name,y = 0.5,x = (ideo[k,2]+ideo[k,3])/2)
+        print(mean(ideo[k,2],ideo[k,3]))
+      }
     }
 
   }; rm(col)
@@ -122,7 +127,7 @@ plotChromosomeWithGenes <- function(chrom,ideo,bpLim=NULL,
   for(g in 1:nrow(GeneList)){
     text(GeneList[g,]$gene,
          x = lableMin+(g-1)*step,y=6.5,srt=90,cex=0.8)
-    segments(x0 = GeneList[g,]$start,y0 = 0,
+    segments(x0 = GeneList[g,]$start,y0 = 1,
              x1 = GeneList[g,]$start,y1 = 3)
     segments(x0 = GeneList[g,]$start,y0 = 3,
              x1 = lableMin + (g-1)*step,y1 = 5)
